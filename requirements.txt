@@ -4,3 +4,4 @@ matplotlib
 pillow
 numpy==1.23
 scipy
+scikit-learn
