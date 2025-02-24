@@ -1,60 +1,62 @@
 # CIFAR-100 Classification
 
-Ce repository contient le code pour l'entraînement de modèles de classification sur le dataset **CIFAR-100** en utilisant différentes architectures de réseaux de neurones profonds.
+Ce repository contient le code pour l'entraînement de modèles de classification sur le dataset **CIFAR-100** en utilisant différentes architectures de réseaux de neurones profonds et techniques d'amélioration.
 
-## Structure du repository
+## Structure du Repository
 
-Le projet est structuré en plusieurs branches, chacune correspondant à une architecture de base différente :
+Le projet est organisé en plusieurs branches, chacune correspondant à une approche ou architecture spécifique :
 
 - **Xtension** : Expérimentation avec un modèle basé sur Xtension.
 - **ResNet** : Implémentation et entraînement d'un modèle ResNet adapté à CIFAR-100.
 - **main** : Contient le **meilleur modèle** obtenu en termes de performance sur le dataset de test.
 
-### Organisation des fichiers
+### Organisation des Fichiers
 
 - **cifar-100-python/** : Contient les fichiers du dataset CIFAR-100.
 - **main.ipynb** : Notebook principal pour entraîner les modèles.
-- **README.md** : Ce fichier, expliquant le projet et son utilisation.
-- **requirements.txt** : Contient la liste des dépendances nécessaires pour exécuter le projet.
+- **README.md** : Ce fichier, qui explique le projet et son utilisation.
+- **requirements.txt** : Liste des dépendances nécessaires pour exécuter le projet.
 
-## Modèles et techniques utilisées
+## Modèles et Techniques Utilisées
 
-### Base Models
+### Architectures de Base
 
-Les modèles ont été entraînés avec des architectures connues pour leur efficacité sur les tâches de classification d'images, notamment **ResNet** et **Xtension**.
+Les modèles ont été entraînés avec des architectures reconnues pour leur efficacité en classification d'images, notamment **ResNet** et **Xtension**.
 
-### Callbacks Utilisés
+### Callbacks et Techniques d'Amélioration
 
-En plus des callbacks classiques pour l'amélioration de l'entraînement, un **callback personnalisé "HardExampleMining"** a été ajouté :
+Pour améliorer l'entraînement, plusieurs callbacks classiques ont été utilisés :
 
-- **ModelCheckpoint** : Sauvegarde le meilleur modèle au cours de l'entraînement.
-- **ReduceLROnPlateau** : Réduit le taux d'apprentissage lorsque la validation ne s'améliore plus.
-- **EarlyStopping** : Arrête l'entraînement si la validation ne progresse plus.
-- **HardExampleMining** : Identifie les exemples d'entraînement ayant les plus grandes pertes (*categorical crossentropy*) et leur attribue un poids plus important dans la mise à jour des gradients. Cette technique a été implémentée d'après une recherche indiquant son efficacité pour améliorer les performances.
+- **ModelCheckpoint** : Sauvegarde le meilleur modèle pendant l'entraînement.
+- **ReduceLROnPlateau** : Réduit le taux d'apprentissage lorsque la performance sur la validation stagne.
+- **EarlyStopping** : Interrompt l'entraînement en cas d'absence de progrès sur la validation.
+- **HardExampleMining** : (Technique initiale) Identifie et met l'accent sur les exemples d'entraînement avec les plus grandes pertes (crossentropy catégorique).
 
-## Amélioration des performances
+**Nouvelle Technique**  
+Afin d'augmenter significativement l'accuracy, une nouvelle stratégie a été testée : le **redimensionnement des images**. Cette approche a permis d'améliorer l'accuracy sur le dataset de test de **50% à 78%**.
 
-L'ajout du callback **HardExampleMining** a permis une nette amélioration de l'accuracy sur le dataset de test :
+> Note : La combinaison de la technique de redimensionnement avec l'entraînement sur des images à données plus complexes n'a pas pu être réalisée en raison des limitations de mémoire CPU sur la machine utilisée.
 
-- Avant : **50%** d'accuracy
-- Après : **55%** d'accuracy
+## Résultats et Visualisation
+
+Les performances des modèles sont évaluées à la fin de l'entraînement :
+
+- **Avant redimensionnement** : ~50% d'accuracy sur le dataset de test.
+- **Après redimensionnement** : ~78% d'accuracy sur le dataset de test.
+
+Les résultats détaillés et visualisations sont générés dans le notebook principal.
 
 ## Installation et Exécution
 
 ### Prérequis
 
-Assurez-vous d'avoir Python 3.9.13 installé avec les bibliothèques suivantes :
+Assurez-vous d'avoir Python 3.9.13 (ou version ultérieure) ainsi que les bibliothèques listées dans **requirements.txt** installées :
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Entraînement du modèle
+### Entraînement du Modèle
 
-Pour entraîner un modèle, exécutez le notebook dans l'ordre
-
-## Résultats et Visualisation
-
-Les performances des modèles sont disponibles a la fin de l'entrainement
-
+Pour lancer l'entraînement, exécutez le notebook **main.ipynb** dans l'ordre indiqué.
 
